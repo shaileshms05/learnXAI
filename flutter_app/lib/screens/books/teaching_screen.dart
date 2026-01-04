@@ -65,12 +65,12 @@ class _TeachingScreenState extends State<TeachingScreen> {
   Future<void> _checkUnderstanding() async {
     if (_answerController.text.isEmpty) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Please enter your answer'),
             backgroundColor: Colors.orange,
           ),
-        );
+      );
       }
       return;
     }

@@ -548,27 +548,27 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
                   child: ShaderMask(
                     shaderCallback: (bounds) => AppTheme.primaryGradient.createShader(bounds),
                     child: Text(
-                      'Student AI',
-                      style: AppTheme.heading4.copyWith(
+                        'Student AI',
+                        style: AppTheme.heading4.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),
                       overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
+                        ),
+                      ),
                 ),
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.circle,
                     boxShadow: AppTheme.shadowSm,
-                  ),
+                        ),
                   child: IconButton(
                     icon: const Icon(Icons.person_outline_rounded, size: 22),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/profile/edit');
-                    },
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/profile/edit');
+                  },
                     tooltip: 'Profile',
                     color: AppTheme.primaryColor,
                     padding: const EdgeInsets.all(8),
@@ -584,16 +584,16 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
                     color: Colors.white,
                     shape: BoxShape.circle,
                     boxShadow: AppTheme.shadowSm,
-                  ),
+                ),
                   child: IconButton(
                     icon: const Icon(Icons.logout_rounded, size: 22),
-                    onPressed: () async {
-                      final authProvider = Provider.of<AuthProvider>(context, listen: false);
-                      await authProvider.signOut();
-                      if (!context.mounted) return;
-                      Navigator.of(context).pushReplacementNamed('/signin');
-                    },
-                    tooltip: 'Logout',
+                  onPressed: () async {
+                    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+                    await authProvider.signOut();
+                    if (!context.mounted) return;
+                    Navigator.of(context).pushReplacementNamed('/signin');
+                  },
+                  tooltip: 'Logout',
                     color: AppTheme.errorColor,
                     padding: const EdgeInsets.all(8),
                     constraints: const BoxConstraints(

@@ -114,8 +114,8 @@ class InternshipScraper:
                 
                 if use_webdriver_manager:
                     try:
-                        service = Service(ChromeDriverManager().install())
-                        self._driver = webdriver.Chrome(service=service, options=chrome_options)
+                    service = Service(ChromeDriverManager().install())
+                    self._driver = webdriver.Chrome(service=service, options=chrome_options)
                     except Exception as e:
                         print(f"⚠️  WebDriver Manager failed, trying system ChromeDriver: {e}")
                         self._driver = webdriver.Chrome(options=chrome_options)
@@ -408,7 +408,7 @@ class InternshipScraper:
         print(f"🌐 Scraping Indeed ({indeed_domain}): {url}")
         
         # Strategy 1: Try BeautifulSoup + Requests first (simplest, fastest for static content)
-        try:
+            try:
             print("🚀 Using BeautifulSoup + Requests...")
             # Add delay to be respectful
             time.sleep(1)
@@ -428,70 +428,70 @@ class InternshipScraper:
             print(f"📊 Indeed response status: {response.status_code}")
             
             if response.status_code == 200:
-                # Check if we got redirected to a captcha or error page
-                if 'captcha' in response.url.lower() or 'unusual' in response.text.lower()[:1000]:
-                    print("🚫 Indeed is showing captcha or blocking request")
+            # Check if we got redirected to a captcha or error page
+            if 'captcha' in response.url.lower() or 'unusual' in response.text.lower()[:1000]:
+                print("🚫 Indeed is showing captcha or blocking request")
                 else:
-                    soup = BeautifulSoup(response.content, 'html.parser')
-                    
-                    # Debug: Check if page has job listings
-                    page_text = soup.get_text().lower()
-                    if 'no jobs found' in page_text or 'try different keywords' in page_text:
-                        print("⚠️  Indeed shows 'no jobs found' message")
+            soup = BeautifulSoup(response.content, 'html.parser')
+            
+            # Debug: Check if page has job listings
+            page_text = soup.get_text().lower()
+            if 'no jobs found' in page_text or 'try different keywords' in page_text:
+                print("⚠️  Indeed shows 'no jobs found' message")
                     else:
-                        # Parse HTML
+            # Parse HTML
                         internships = self._parse_indeed_html(soup, query, location, max_results * 2)
-                        
-                        # Filter and sort by relevance
-                        if internships:
-                            # Score each internship
-                            scored_internships = []
-                            for job in internships:
-                                score = self._calculate_relevance_score(
-                                    job['title'], 
-                                    job.get('description', ''),
-                                    job['location'],
-                                    query,
-                                    location
-                                )
-                                scored_internships.append((score, job))
-                            
-                            # Filter out low-scoring jobs (adaptive filtering)
-                            if scored_internships:
-                                max_score = max(s for s, _ in scored_internships)
-                                if len(scored_internships) <= 5:
+            
+            # Filter and sort by relevance
+            if internships:
+                # Score each internship
+                scored_internships = []
+                for job in internships:
+                    score = self._calculate_relevance_score(
+                        job['title'], 
+                        job.get('description', ''),
+                        job['location'],
+                        query,
+                        location
+                    )
+                    scored_internships.append((score, job))
+                
+                # Filter out low-scoring jobs (adaptive filtering)
+                if scored_internships:
+                    max_score = max(s for s, _ in scored_internships)
+                    if len(scored_internships) <= 5:
                                     min_score = 0.15
-                                elif max_score > 0.4:
+                    elif max_score > 0.4:
                                     min_score = 0.2
-                                else:
+                    else:
                                     min_score = 0.25
-                            else:
-                                min_score = 0.2 if location else 0.15
-                            
-                            filtered_scored = [(s, j) for s, j in scored_internships if s >= min_score]
-                            
+                else:
+                    min_score = 0.2 if location else 0.15
+                
+                filtered_scored = [(s, j) for s, j in scored_internships if s >= min_score]
+                
                             # If filtering removed everything, be more lenient
-                            if not filtered_scored and scored_internships:
-                                filtered_scored = sorted(scored_internships, key=lambda x: x[0], reverse=True)[:max_results]
-                                print(f"⚠️  All jobs below threshold, returning top {len(filtered_scored)} anyway")
-                            
+                if not filtered_scored and scored_internships:
+                    filtered_scored = sorted(scored_internships, key=lambda x: x[0], reverse=True)[:max_results]
+                    print(f"⚠️  All jobs below threshold, returning top {len(filtered_scored)} anyway")
+                
                             # Sort by relevance score
-                            filtered_scored.sort(key=lambda x: x[0], reverse=True)
-                            internships = [job for _, job in filtered_scored[:max_results]]
-                            
+                filtered_scored.sort(key=lambda x: x[0], reverse=True)
+                internships = [job for _, job in filtered_scored[:max_results]]
+                
                             # Log results
-                            filtered_count = len(internships)
-                            total_count = len(scored_internships)
-                            print(f"📊 Filtered {total_count} jobs → {filtered_count} relevant internships")
-                            
+                filtered_count = len(internships)
+                total_count = len(scored_internships)
+                print(f"📊 Filtered {total_count} jobs → {filtered_count} relevant internships")
+                
                             if location and internships:
-                                matching_locations = [j['location'] for _, j in internships]
-                                print(f"📍 Locations found: {', '.join(set(matching_locations[:5]))}")
-                            
+                    matching_locations = [j['location'] for _, j in internships]
+                    print(f"📍 Locations found: {', '.join(set(matching_locations[:5]))}")
+            
                             if internships:
                                 print(f"✅ BeautifulSoup scraping successful: {len(internships)} internships found")
-                                return internships
-                        
+            return internships
+                    
                         print("⚠️  BeautifulSoup found page but no jobs parsed - trying browser automation...")
             elif response.status_code == 403:
                 print("🚫 Access forbidden (403) - trying browser automation...")
@@ -525,17 +525,17 @@ class InternshipScraper:
                     print("⚠️  Selenium returned no page source")
             except Exception as e:
                 print(f"⚠️  Selenium scraping failed: {e}")
-                import traceback
-                traceback.print_exc()
+            import traceback
+            traceback.print_exc()
         else:
             print("⏭️  Selenium not available")
         
         # Final fallback: Try RSS feed
         print("🔄 Trying RSS feed as final fallback...")
-        try:
-            rss_results = self.scrape_indeed_rss(query, location, max_results)
-            if rss_results:
-                return rss_results
+            try:
+                rss_results = self.scrape_indeed_rss(query, location, max_results)
+                if rss_results:
+                    return rss_results
         except Exception as e:
             print(f"⚠️  RSS feed failed: {e}")
         

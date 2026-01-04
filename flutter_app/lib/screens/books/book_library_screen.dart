@@ -169,8 +169,8 @@ class _BookLibraryScreenState extends State<BookLibraryScreen> {
                             ? null 
                             : () {
                                 print('🔘 Upload button clicked');
-                                _uploadBook();
-                              },
+                          _uploadBook();
+                        },
                         icon: _isUploading
                             ? const SizedBox(
                                 width: 20,
