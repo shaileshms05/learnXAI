@@ -69,7 +69,7 @@
 │  │   Flash)     │  │  Firestore)  │  │   API        │      │
 │  └──────────────┘  └──────────────┘  └──────────────┘      │
 │  ┌──────────────┐  ┌──────────────┐                          │
-│  │ Vertex AI    │  │   Gmail API │                          │
+│  │  AI       │  │   Gmail API │                          │
 │  │ (Enterprise) │  │             │                          │
 │  └──────────────┘  └──────────────┘                          │
 └──────────────────────────────────────────────────────────────┘
@@ -111,18 +111,9 @@ response = ai_client.chat_completions_create(
 - 🎯 **Accurate**: State-of-the-art performance
 - 🔄 **Multimodal**: Supports text, images, and more
 
-### 2. **Vertex AI** - Enterprise Deployment Option
 
-**Technology**: Google Cloud AI Platform  
-**Purpose**: Enterprise-grade AI deployment with enhanced security
 
-**Features**:
-- Project-based authentication
-- Enhanced security and compliance
-- Scalable infrastructure
-- Same Gemini 2.5 Flash model
-
-### 3. **RAG (Retrieval-Augmented Generation)**
+### 2. **RAG (Retrieval-Augmented Generation)**
 
 **Technology**: ChromaDB + Sentence Transformers  
 **Purpose**: Context-aware AI responses for book learning
@@ -141,7 +132,7 @@ AI Response Generation
 - **Knowledge Graph**: Concept extraction and relationships
 - **Context Retrieval**: RAG pipeline for relevant information
 
-### 4. **Vector Embeddings**
+### 3. **Vector Embeddings**
 
 **Technology**: Sentence Transformers  
 **Purpose**: Semantic search and concept matching
@@ -152,7 +143,7 @@ AI Response Generation
 - Knowledge retrieval
 - Similarity matching
 
-### 5. **Knowledge Graphs**
+### 4. **Knowledge Graphs**
 
 **Technology**: Graph Data Structures  
 **Purpose**: Represent concept relationships
