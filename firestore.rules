@@ -1,0 +1,49 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if user is authenticated
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    // Helper function to check if user owns the document
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+    
+    // Students collection
+    match /students/{studentId} {
+      // Users can only read and write their own profile
+      allow read, write: if isOwner(studentId);
+    }
+    
+    // Learning paths collection
+    match /learningPaths/{pathId} {
+      // Users can read and write their own learning paths
+      allow read, write: if isSignedIn() && 
+        resource.data.studentId == request.auth.uid;
+      allow create: if isSignedIn() && 
+        request.resource.data.studentId == request.auth.uid;
+    }
+    
+    // Internship recommendations collection
+    match /internshipRecommendations/{recId} {
+      // Users can read and write their own recommendations
+      allow read, write: if isSignedIn() && 
+        resource.data.studentId == request.auth.uid;
+      allow create: if isSignedIn() && 
+        request.resource.data.studentId == request.auth.uid;
+    }
+    
+    // Chat sessions collection
+    match /chatSessions/{sessionId} {
+      // Users can read and write their own chat sessions
+      allow read, write: if isSignedIn() && 
+        resource.data.studentId == request.auth.uid;
+      allow create: if isSignedIn() && 
+        request.resource.data.studentId == request.auth.uid;
+    }
+  }
+}
+

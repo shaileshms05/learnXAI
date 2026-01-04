@@ -1,0 +1,65 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+server.log
+
+# Data directories (will be created in container)
+books_data/uploads/*
+books_data/processed/*
+books_data/progress/*
+interview_audio/*
+
+# Keep directory structure but ignore contents
+!books_data/uploads/.gitkeep
+!books_data/processed/.gitkeep
+!books_data/progress/.gitkeep
+!interview_audio/.gitkeep
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+*.md
+!README.md
+
+# Scripts (not needed in production)
+setup.sh
+setup-books.sh
+start-server.sh
+
+# Testing
+test_*.py
+*_test.py
+tests/
+
+# Training data (optional)
+training_data/
+
+# OS
+.DS_Store
+Thumbs.db
+

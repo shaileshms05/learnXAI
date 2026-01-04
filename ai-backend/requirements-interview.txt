@@ -1,0 +1,17 @@
+# Mock Interview Feature Dependencies
+
+# Resume parsing
+PyPDF2>=3.0.0
+python-docx>=1.0.0
+pdfplumber>=0.10.0
+
+# Voice synthesis (Text-to-Speech)
+gtts>=2.5.0  # Google Text-to-Speech (free)
+pydub>=0.25.1  # Audio manipulation
+
+# Speech recognition (optional - for voice answers)
+SpeechRecognition>=3.10.0
+
+# Additional NLP
+spacy>=3.7.0
+

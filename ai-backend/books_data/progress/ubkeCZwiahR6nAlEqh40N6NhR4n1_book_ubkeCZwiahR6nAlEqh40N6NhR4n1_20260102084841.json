@@ -1,0 +1,19 @@
+{
+  "user_id": "ubkeCZwiahR6nAlEqh40N6NhR4n1",
+  "book_id": "book_ubkeCZwiahR6nAlEqh40N6NhR4n1_20260102084841",
+  "chapter_progress": {
+    "1": 0.0,
+    "1": 12.142857142857142
+  },
+  "concept_mastery": {
+    "ch1_c0": 85,
+    "ch1_c1": 0.0,
+    "ch1_c2": 0.0,
+    "ch1_c3": 0.0,
+    "ch1_c4": 0.0,
+    "ch1_c5": 0.0,
+    "ch1_c6": 0.0
+  },
+  "quiz_scores": [],
+  "last_updated": "2026-01-02T08:50:05.487153"
+}

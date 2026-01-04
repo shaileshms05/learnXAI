@@ -1,0 +1,10 @@
+mcp>=0.9.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+# Browser automation - Selenium (used as fallback for JavaScript-heavy sites)
+selenium>=4.15.0
+webdriver-manager>=4.0.0
+# Optional: Scrapy for large-scale scraping (uncomment if needed)
+# scrapy>=2.11.0
+

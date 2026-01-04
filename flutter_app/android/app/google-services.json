@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "927491381202",
+    "project_id": "student-app-36eec",
+    "storage_bucket": "student-app-36eec.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927491381202:android:8b38150daf041fef579a0b",
+        "android_client_info": {
+          "package_name": "com.gdg.student_ai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVGDgu_dVMUU93FA7Vq5zz4dz22j0_1Yg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
+

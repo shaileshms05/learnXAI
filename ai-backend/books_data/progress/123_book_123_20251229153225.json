@@ -1,0 +1,16 @@
+{
+  "user_id": "123",
+  "book_id": "book_123_20251229153225",
+  "chapter_progress": {
+    "1": 0.0
+  },
+  "concept_mastery": {
+    "ch1_c0": 0.0,
+    "ch1_c1": 0.0,
+    "ch1_c2": 0.0,
+    "ch1_c3": 0.0,
+    "ch1_c4": 0.0
+  },
+  "quiz_scores": [],
+  "last_updated": "2025-12-29T15:32:27.421852"
+}

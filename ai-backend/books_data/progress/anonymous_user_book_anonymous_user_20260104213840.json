@@ -1,0 +1,17 @@
+{
+  "user_id": "anonymous_user",
+  "book_id": "book_anonymous_user_20260104213840",
+  "chapter_progress": {
+    "1": 0.0,
+    "1": 17.0
+  },
+  "concept_mastery": {
+    "ch1_c0": 85,
+    "ch1_c1": 0.0,
+    "ch1_c2": 0.0,
+    "ch1_c3": 0.0,
+    "ch1_c4": 0.0
+  },
+  "quiz_scores": [],
+  "last_updated": "2026-01-04T21:39:17.308622"
+}
