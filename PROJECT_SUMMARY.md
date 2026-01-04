@@ -2,7 +2,15 @@
 
 ## 📋 Project Overview
 
-**Student AI Platform** is a comprehensive, AI-powered educational and career development application designed to help students learn, find internships, and advance their careers. The platform combines modern web technologies, AI/ML capabilities, and cross-platform mobile development to deliver a seamless user experience.
+**Student AI Platform** is a comprehensive, AI-powered educational and career development application designed to help students learn, find internships, and advance their careers. Built for the **GDG Hackathon**, this platform combines modern web technologies, **Google AI capabilities**, and cross-platform mobile development to deliver a seamless user experience.
+
+### 🎯 Core Objectives
+
+- **Personalized Learning**: AI-generated learning paths tailored to individual goals
+- **Career Development**: Intelligent internship discovery and job application assistance
+- **Skill Enhancement**: Interactive book learning with AI-powered teaching
+- **Interview Preparation**: Voice-based mock interviews with real-time feedback
+- **Resume Optimization**: AI-powered resume analysis and optimization
 
 ---
 
@@ -16,6 +24,8 @@
 │  ┌──────────────┐         ┌──────────────┐                  │
 │  │ Flutter App  │         │ Next.js Web  │                  │
 │  │  (Mobile)    │         │  (Desktop)   │                  │
+│  │ iOS/Android/ │         │              │                  │
+│  │    Web       │         │              │                  │
 │  └──────┬───────┘         └──────┬───────┘                 │
 │         │                        │                          │
 │         └────────────┬───────────┘                          │
@@ -30,18 +40,26 @@
 │  │  - Internship Scraping                               │    │
 │  │  - Resume Analysis & Optimization                    │    │
 │  │  - Mock Interview System                             │    │
-│  │  - Book Learning System                              │    │
+│  │  - Book Learning System (RAG)                        │    │
+│  │  - Job Application Agent                             │    │
 │  └──────────────────────────────────────────────────────┘    │
 └──────────────────────┼──────────────────────────────────────┘
                        │
 ┌──────────────────────┼──────────────────────────────────────┐
-│              External Services & APIs                         │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐      │
-│  │ Cerebras │  │ Firebase │  │ Google  │  │ Web      │      │
-│  │   AI     │  │  (Auth,  │  │Calendar │  │Scrapers  │      │
-│  │          │  │ Firestore)│  │   API   │  │(Indeed,  │      │
-│  │          │  │           │  │         │  │LinkedIn)│      │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘      │
+│              Google Services & External APIs                    │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
+│  │ Google AI    │  │   Firebase   │  │   Google     │      │
+│  │ (Gemini 2.5  │  │  (Auth,      │  │   Calendar   │      │
+│  │   Flash)     │  │  Firestore)  │  │   API        │      │
+│  └──────────────┘  └──────────────┘  └──────────────┘      │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
+│  │ Vertex AI    │  │   Gmail API │  │   Web        │      │
+│  │ (Enterprise) │  │             │  │  Scrapers    │      │
+│  └──────────────┘  └──────────────┘  │ (Indeed,     │      │
+│  ┌──────────────┐                    │ Skill India)│      │
+│  │ Cerebras AI  │                    └──────────────┘      │
+│  │ (Fallback)   │                                            │
+│  └──────────────┘                                            │
 └──────────────────────────────────────────────────────────────┘
 ```
 
@@ -82,14 +100,37 @@
   - **CORS Middleware**: Cross-origin resource sharing
   - **Streaming Responses**: Server-Sent Events for real-time updates
 
-#### **2. Cerebras AI - LLM Provider**
-- **Model**: Llama 3.1 8B/70B
-- **Purpose**: AI-powered content generation
+#### **2. Google AI (Gemini 2.5 Flash) - Primary LLM Provider**
+- **Model**: `gemini-2.5-flash`
+- **Purpose**: Primary AI engine for all intelligent features
 - **Key Concepts Used**:
-  - **OpenAI-Compatible API**: Standardized interface
+  - **Large Language Models (LLMs)**: Advanced text generation
   - **Prompt Engineering**: Structured prompts for consistent outputs
   - **Streaming Responses**: Token-by-token generation
   - **Temperature Control**: Response creativity tuning
+  - **Multimodal Capabilities**: Text, images, and more
+- **Why Gemini 2.5 Flash?**
+  - ⚡ **Fast**: Optimized for speed and efficiency
+  - 💰 **Cost-Effective**: Lower cost per token
+  - 🎯 **Accurate**: State-of-the-art performance
+  - 🔄 **Multimodal**: Supports text, images, and more
+
+#### **3. Vertex AI - Enterprise Deployment Option**
+- **Service**: Google Cloud AI Platform
+- **Purpose**: Enterprise-grade AI deployment with enhanced security
+- **Features**:
+  - Project-based authentication
+  - Enhanced security and compliance
+  - Scalable infrastructure
+  - Same Gemini 2.5 Flash model
+
+#### **4. Cerebras AI - Optional Fallback**
+- **Model**: Llama 3.1 8B/70B
+- **Purpose**: Optional fallback AI provider
+- **Key Concepts Used**:
+  - **OpenAI-Compatible API**: Standardized interface
+  - **Ultra-Fast Inference**: 10x faster than traditional GPUs
+  - **Fallback Mechanism**: Used only if Google AI unavailable
 
 ### **Database & Storage**
 
@@ -128,17 +169,18 @@
 
 ### **1. Learning Path Generator**
 
-**Technology**: Cerebras AI (Llama 3.1) + FastAPI
+**Technology**: Google AI (Gemini 2.5 Flash) + FastAPI
 
 **Concepts Used**:
 - **Prompt Engineering**: Structured prompts with user profile data
 - **JSON Schema Validation**: Ensuring structured AI responses
 - **Async Processing**: Non-blocking AI generation
 - **Caching**: Storing generated paths in Firestore
+- **LLM Integration**: Google AI API for intelligent content generation
 
 **Implementation Flow**:
 ```
-User Profile → FastAPI → Cerebras AI → Structured Learning Path → Firestore → Flutter UI
+User Profile → FastAPI → Google AI (Gemini) → Structured Learning Path → Firestore → Flutter UI
 ```
 
 **Key Files**:
@@ -153,15 +195,16 @@ User Profile → FastAPI → Cerebras AI → Structured Learning Path → Firest
 **Technology**: BeautifulSoup, Selenium, Requests, FastAPI
 
 **Concepts Used**:
-- **Multi-Source Scraping**: Indeed, LinkedIn, Glassdoor, Skill India Digital
+- **Multi-Source Scraping**: Indeed, Skill India Digital
 - **Relevance Filtering**: TF-IDF-like scoring algorithm
-- **Query Optimization**: Cerebras AI for search term refinement
+- **Query Optimization**: Google AI (Gemini) for search term refinement
 - **Streaming API**: Server-Sent Events for real-time progress
 - **Error Recovery**: Fallback mechanisms at each tier
+- **AI-Powered Filtering**: Intelligent relevance scoring
 
 **Implementation Flow**:
 ```
-User Query → Cerebras Query Optimization → Multi-Source Scraping → 
+User Query → Google AI Query Optimization → Multi-Source Scraping → 
 Relevance Scoring → Filtering → Results Display
 ```
 
@@ -179,18 +222,19 @@ Relevance Scoring → Filtering → Results Display
 
 ### **3. Resume Analyzer & Optimizer**
 
-**Technology**: Cerebras AI + Document Processing
+**Technology**: Google AI (Gemini 2.5 Flash) + Document Processing
 
 **Concepts Used**:
 - **Text Extraction**: PDF parsing and text extraction
-- **NLP Analysis**: Keyword extraction, skill matching
+- **NLP Analysis**: Keyword extraction, skill matching using Gemini
 - **ATS Optimization**: Applicant Tracking System compatibility
 - **Structured Output**: JSON-formatted feedback
 - **Base64 Encoding**: File transfer over HTTP
+- **AI-Powered Insights**: Gemini analyzes resume content
 
 **Implementation Flow**:
 ```
-Resume PDF → Text Extraction → AI Analysis → 
+Resume PDF → Text Extraction → Google AI Analysis → 
 Strengths/Weaknesses → Optimization Suggestions → UI Display
 ```
 
@@ -203,19 +247,20 @@ Strengths/Weaknesses → Optimization Suggestions → UI Display
 
 ### **4. Mock Interview System**
 
-**Technology**: Cerebras AI + Speech Recognition + Text-to-Speech
+**Technology**: Google AI (Gemini 2.5 Flash) + Speech Recognition + Text-to-Speech
 
 **Concepts Used**:
 - **Voice-Based Interaction**: Speech-to-Text (STT) and Text-to-Speech (TTS)
-- **Conversational AI**: Multi-turn dialogue management
+- **Conversational AI**: Multi-turn dialogue management with Gemini
 - **Audio Processing**: MP3 recording and playback
 - **Real-time Feedback**: Immediate response analysis
 - **Session Management**: Interview state tracking
+- **Resume-Based Questions**: Context-aware question generation
 
 **Implementation Flow**:
 ```
-User Voice Input → STT → AI Question Generation → 
-TTS Output → User Answer → STT → AI Feedback → Display
+User Voice Input → STT → Google AI Question Generation → 
+TTS Output → User Answer → STT → Google AI Feedback → Display
 ```
 
 **Key Files**:
@@ -271,6 +316,7 @@ Knowledge Graph → Teaching Engine → Quiz Generation
 - **Event Management**: CRUD operations on calendar events
 - **Batch Operations**: Multiple event creation
 - **Progress Callbacks**: Real-time update notifications
+- **Automatic Scheduling**: Learning path tasks → Calendar events
 
 **Implementation Flow**:
 ```
@@ -281,6 +327,30 @@ Google Calendar API → Event Creation → Progress Updates
 **Key Files**:
 - `flutter_app/lib/services/google_calendar_service.dart`: API client
 - `flutter_app/lib/providers/auth_provider.dart`: Auth management
+
+---
+
+### **7. Job Application Agent**
+
+**Technology**: Google AI (Gemini 2.5 Flash) + Gmail API
+
+**Concepts Used**:
+- **Job Match Analysis**: AI-powered compatibility scoring
+- **Email Generation**: Professional application emails
+- **Tone Customization**: Adjustable email tone
+- **Gmail Integration**: Direct email sending
+- **OAuth 2.0**: Gmail API authentication
+
+**Implementation Flow**:
+```
+Job Description → Google AI Analysis → Match Score → 
+Email Generation → Gmail API → Email Sent
+```
+
+**Key Files**:
+- `ai-backend/job_application_agent.py`: AI agent logic
+- `flutter_app/lib/services/job_agent_service.dart`: API client
+- `flutter_app/lib/services/gmail_service.dart`: Gmail integration
 
 ---
 
@@ -338,7 +408,7 @@ class AuthProvider extends ChangeNotifier {
 
 ### **1. Request-Response Pattern**
 ```
-Flutter App → HTTP POST → FastAPI → Cerebras AI → Response → Flutter App
+Flutter App → HTTP POST → FastAPI → Google AI (Gemini) → Response → Flutter App
 ```
 
 ### **2. Server-Sent Events (SSE)**
@@ -538,7 +608,9 @@ if (kIsWeb) {
 
 ### **Python Backend**
 - `fastapi`: Web framework
-- `openai`: Cerebras AI client (OpenAI-compatible)
+- `google-generativeai`: Google AI (Gemini) client
+- `google-cloud-aiplatform`: Vertex AI support
+- `openai`: Cerebras AI client (OpenAI-compatible, fallback)
 - `pydantic`: Data validation
 - `beautifulsoup4`, `selenium`: Web scraping
 - `sentence-transformers`, `chromadb`: RAG system
@@ -546,33 +618,92 @@ if (kIsWeb) {
 
 ---
 
+## 🔧 Google Tools & Services Integration
+
+### **1. Google AI (Gemini API)**
+- **Service**: Google Generative AI
+- **Usage**: Primary AI provider for all intelligent features
+- **Model**: `gemini-2.5-flash`
+- **Features**: Text generation, chat completions, content analysis
+
+### **2. Firebase Authentication**
+- **Service**: Firebase Auth
+- **Usage**: User authentication and authorization
+- **Features**: Email/Password, Google Sign-In, session management
+
+### **3. Cloud Firestore**
+- **Service**: Firebase Firestore
+- **Usage**: NoSQL database for user data
+- **Features**: Real-time sync, offline support, scalable structure
+
+### **4. Google Calendar API**
+- **Service**: Google Calendar
+- **Usage**: Automatic task scheduling
+- **Features**: Event creation, batch operations, OAuth 2.0
+
+### **5. Gmail API**
+- **Service**: Gmail
+- **Usage**: Sending job application emails
+- **Features**: Email composition, draft creation, OAuth 2.0
+
+### **6. Google Sign-In**
+- **Service**: Google Identity
+- **Usage**: Single Sign-On (SSO)
+- **Features**: One-click auth, profile access, token management
+
+### **7. Google Fonts**
+- **Service**: Google Fonts
+- **Usage**: Typography in Flutter app
+- **Features**: Wide selection, dynamic loading, Material Design
+
+### **8. Google Cloud Platform (GCP)**
+- **Services**: Cloud Run, Container Registry, Secret Manager, Cloud Build
+- **Usage**: Production deployment and CI/CD
+- **Features**: Serverless deployment, secure configuration, automated builds
+
+---
+
 ## 🎓 Learning Outcomes
 
 This project demonstrates:
 1. **Full-Stack Development**: Frontend + Backend integration
-2. **AI/ML Integration**: LLM usage, RAG, embeddings
-3. **Web Scraping**: Multi-tier scraping strategies
-4. **Cross-Platform Development**: Flutter for mobile/web
-5. **Modern UI/UX**: Glassmorphism, animations, responsive design
-6. **API Design**: RESTful APIs, streaming, SSE
-7. **State Management**: Provider pattern, reactive programming
-8. **Database Design**: NoSQL (Firestore) patterns
-9. **Authentication**: OAuth 2.0, JWT tokens
-10. **Error Handling**: Comprehensive error management
+2. **Google AI Integration**: Gemini 2.5 Flash as primary LLM
+3. **AI/ML Integration**: LLM usage, RAG, embeddings, knowledge graphs
+4. **Web Scraping**: Multi-tier scraping strategies
+5. **Cross-Platform Development**: Flutter for mobile/web
+6. **Modern UI/UX**: Glassmorphism, animations, responsive design
+7. **API Design**: RESTful APIs, streaming, SSE
+8. **State Management**: Provider pattern, reactive programming
+9. **Database Design**: NoSQL (Firestore) patterns
+10. **Authentication**: OAuth 2.0, JWT tokens, Google Sign-In
+11. **Google Services**: Calendar, Gmail, Firebase integration
+12. **Error Handling**: Comprehensive error management
+13. **DevOps**: Docker, Cloud Run, CI/CD pipelines
 
 ---
 
 ## 📝 Conclusion
 
-The **Student AI Platform** is a sophisticated, production-ready application that combines modern web technologies, AI/ML capabilities, and best practices in software engineering. It demonstrates expertise in:
+The **Student AI Platform** is a sophisticated, production-ready application built for the **GDG Hackathon** that combines modern web technologies, **Google AI capabilities**, and best practices in software engineering. It demonstrates expertise in:
 
 - **Full-stack development** (Flutter, FastAPI, Next.js)
-- **AI/ML integration** (Cerebras, RAG, embeddings)
-- **Web scraping** (multi-tier strategies)
-- **Modern UI/UX** (glassmorphism, animations)
-- **System architecture** (microservices, API design)
-- **Security** (authentication, data validation)
+- **Google AI integration** (Gemini 2.5 Flash as primary, Vertex AI for enterprise)
+- **AI/ML integration** (LLMs, RAG, embeddings, knowledge graphs)
+- **Google Services** (Firebase, Calendar, Gmail, Sign-In)
+- **Web scraping** (multi-tier strategies with AI optimization)
+- **Modern UI/UX** (glassmorphism, animations, Material Design 3)
+- **System architecture** (microservices, API design, Docker deployment)
+- **Security** (authentication, OAuth 2.0, data validation)
 - **Performance** (async operations, caching, optimization)
+- **DevOps** (Docker, Cloud Run, CI/CD, Secret Manager)
 
-The project showcases a comprehensive understanding of software engineering principles, design patterns, and modern development practices.
+### 🏆 GDG Hackathon Highlights
+
+- **Primary AI**: Google AI (Gemini 2.5 Flash) - Fast, efficient, cost-effective
+- **Google Services**: Comprehensive integration of Firebase, Calendar, Gmail
+- **Production Ready**: Docker containerization and GCP deployment
+- **Cross-Platform**: Flutter app for iOS, Android, and Web
+- **Modern Architecture**: Multi-tier, microservices, scalable design
+
+The project showcases a comprehensive understanding of software engineering principles, design patterns, modern development practices, and **extensive use of Google technologies** for the GDG Hackathon.
 
